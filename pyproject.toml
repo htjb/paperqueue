@@ -8,6 +8,13 @@ version = "0.1.0"
 description = "paperqueue stuff."
 authors = [{name ="Harry Bevins", email ="htjb2@cam.ac.uk"}]
 
+[project.scripts]
+paperqueue = "paperqueue.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["paperqueue*"]
+
 [tool.ruff]
 line-length = 79
 
