@@ -1,4 +1,5 @@
-
+"""Util functions."""
+import numpy as np
 import json
 from pathlib import Path
 
@@ -22,3 +23,20 @@ def is_already_added(data, arxiv_id):
         return True, "archive"
     
     return False, None
+
+def move_paper(id, a, b):
+    """Move a paper from list a to b.
+    
+    Args:
+        id: the papers id.
+        a: list a e.g. queue.
+        b: list b e.g. archive.
+    """
+
+    index = np.argmax([elem["id"] == id
+                       for elem in a])
+    paper = a[index]
+    del a[index]
+    b.append(paper)
+
+    return a, b

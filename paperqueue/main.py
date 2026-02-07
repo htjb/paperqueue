@@ -1,7 +1,7 @@
 """Main entry point for paperqueue."""
 import argparse
 
-from paperqueue.commands.add import add
+from paperqueue.commands import add, read, requeue
 
 def main():
     """Main function to parse command-line arguments and execute commands."""
@@ -17,6 +17,9 @@ def main():
     
     read_parser = subparser.add_parser(
         "read", help="Mark a paper as read."
+    )
+    requeue_parser = subparser.add_parser(
+        'requeue', help="Move a paper from archive back to queue"
     )
     list_parser = subparser.add_parser(
         "list", help="List all of the papers in the database",
@@ -34,16 +37,25 @@ def main():
         'notes', help="Edit the notes on a particular paper."
     )
     download_parser = subparser.add_parser(
-        'down', help='Download the paper pdf.'
+        'fetch', help='Download the paper pdf.'
     )
 
 
-    parsers = [read_parser, list_parser, show_parser,
-                drop_parser, search_parser, download_parser, notes_parser]
+    parsers = [read_parser, show_parser,
+                drop_parser, search_parser, download_parser, 
+                notes_parser, requeue_parser]
     for p in parsers:
         p.add_argument(
-            'id', help="A unique identifier for the paper."
+            'id', help="A unique identifier for the paper.",
+            type=int
         )
+
+    list_parser.add_argument(
+        '--archive', '-a',
+        action='store_true',
+        dest='list_archive',
+        help="List the archive rather than the queue."
+    )
 
     download_parser.add_argument(
         'directory', help="Where to save the pdf."
@@ -58,9 +70,13 @@ def main():
     args = parser.parse_args()
 
     if args.command == 'add':
-        add(args)
-    elif args.command in ['notes', 'read', 'drop',
-                          'down', 'search', 'list',
+        add.add(args)
+    elif args.command == 'read':
+        read.read(args)
+    elif args.command == 'requeue':
+        requeue.requeue(args)
+    elif args.command in ['notes', 'drop',
+                          'fetch', 'search', 'list',
                           'show']:
         print(f'{args.command} not implemented yet.')
         exit()
