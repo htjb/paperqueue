@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
-QUEUE_FILE = Path.home() / ".paperqueue.json"
+QUEUE_FILE = Path.home() / "paperqueue" / ".paperqueue.json"
 
 
 def load_queue() -> dict:
