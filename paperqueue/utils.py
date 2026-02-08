@@ -17,7 +17,7 @@ def load_queue() -> dict:
 
 def save_queue(data: dict) -> None:
     """Resave the catalogue.
-    
+
     Args:
         data: the catalogue.
     """
@@ -35,6 +35,7 @@ def is_already_added(data: dict, arxiv_id: str) -> tuple[bool, str | None]:
         return True, "archive"
 
     return False, None
+
 
 def move_paper(id: int, a: list, b: list) -> tuple[list, list]:
     """Move a paper from list a to b.
