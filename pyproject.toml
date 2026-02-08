@@ -7,9 +7,16 @@ name = "paperqueue"
 version = "0.1.0"
 description = "paperqueue stuff."
 authors = [{name ="Harry Bevins", email ="htjb2@cam.ac.uk"}]
+dependencies = [
+    'numpy',
+    'rich'
+]
 
 [project.scripts]
 paperqueue = "paperqueue.main:main"
+
+[project.optional-dependencies]
+dev=['pre-commit']
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -19,7 +26,7 @@ include = ["paperqueue*"]
 line-length = 79
 
 [tool.ruff.lint]
-select = ['E,', 'F,', 'W,', 'I,', 'D,', 'UP,', 'ANN']
+select = ['E', 'F', 'W', 'I', 'D', 'UP', 'ANN']
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
