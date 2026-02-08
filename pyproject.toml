@@ -9,7 +9,8 @@ description = "paperqueue stuff."
 authors = [{name ="Harry Bevins", email ="htjb2@cam.ac.uk"}]
 dependencies = [
     'numpy',
-    'rich'
+    'rich',
+    'arxiv'
 ]
 
 [project.scripts]
