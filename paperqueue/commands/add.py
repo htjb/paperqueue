@@ -1,9 +1,20 @@
+"""Add a paper to the queue."""
+
+import argparse
+
 import arxiv
+from rich.console import Console
 
-from paperqueue.utils import load_queue, save_queue, is_already_added
+from paperqueue.utils import is_already_added, load_queue, save_queue
 
 
-def add(args):
+def add(args: argparse.Namespace) -> None:
+    """Add a paper to the queue.
+
+    Args:
+        args: command line arguments.
+    """
+    console = Console()
 
     data = load_queue()
 
@@ -29,3 +40,10 @@ def add(args):
     data["next_id"] += 1
 
     save_queue(data)
+
+    console.print(
+        f"Added {new_paper['title']} with"
+        + f" arXiv ID {new_paper['arxiv_id']}"
+        + f" to the queue. You can read the paper at {new_paper['url']}"
+        + " or download it with paperqueue fetch <id>."
+    )
