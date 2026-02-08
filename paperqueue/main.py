@@ -68,6 +68,10 @@ def main() -> None:
     for p in parsers:
         p.add_argument("notes", help="Notes about the paepr.")
 
+    push_parser = subparser.add_parser("push", help="Push to github.")  # noqa: F841
+
+    pull_parser = subparser.add_parser("pull", help="Pull queue from github.")  # noqa: F841
+
     args = parser.parse_args()
 
     if args.command == "add":
@@ -78,6 +82,14 @@ def main() -> None:
         requeue.requeue(args)
     elif args.command == "list":
         list.list(args)
-    elif args.command in ["notes", "drop", "fetch", "search", "list", "show"]:
+    elif args.command in [
+        "notes",
+        "drop",
+        "fetch",
+        "search",
+        "show",
+        "push",
+        "pull",
+    ]:
         print(f"{args.command} not implemented yet.")
         exit()
